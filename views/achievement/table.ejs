@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard -  Albus 4 <%= login[0].pid %></title>
+    <link rel = "icon" href = "https://kadence.com/wp-content/uploads/2020/07/260x260.png" type = "image/x-icon">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="<%= baseurl() %>plugin/flexmonster/theme/green/flexmonster.css"></script>
+    <%- include ('../partials/header') %>
+</head>
+<style>
+    .overview{
+        padding: 10px 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+    }
+</style>
+<body>
+<div class="wrapper">
+	<div class="lSide">
+		<%- include ('../partials/sidebar') %>
+	</div>
+	<div class="rSide">
+		<div class="head desk">
+			<%- include ('../partials/topdesk') %>
+		</div>
+		<div class="mainbox size-std column">
+			<div class="breadcrumbs size-std">
+				<a href="<%= baseurl() %>">DASHBOARD <%= login[0].nameses %></a> > Achievement > Table
+			</div>
+            <form class="control">
+                <div class="list-control" style="border-bottom: none;">
+                    <div class="list-control-box spc-rl">
+                        <span class="size-std">Show By Area</span>
+                        <select name="" id="area" class="size-std" >
+                            <option value="all">-- All --</option>
+                        </select>
+                    </div>
+                    <div class="list-control-box spc-rl">
+                        <span class="size-std">Show By Cabang</span>
+                        <select name="" id="cabang" class="size-std">
+                            <option value="all">-- All --</option>
+                        </select>
+                    </div>
+                    <div class="list-control-box spc-rl">
+                        <input type="search" name="search" ng-model="search" placeholder="Search">
+                    </div>
+                    <div class="list-control-box size-std spc-rl">
+                        <button type="submit" class="myButton-submit">Show</button>
+                        <button type="reset" class="myButton-submit">Clear</button>
+                    </div>
+                </div>
+            </form>
+			<div class="cols-12 containt" style="margin: 20px 0;">
+				<div class="headtitle trans" style="margin-bottom: 0;">
+					<p class="size-head3 nopad">Achievement</p>
+				</div>
+				<div style="width: 100%;">
+					<div class="chartbox">
+						<div id="chartContainer" style="height: 370px; max-width: 100%; width: 100%; margin: 0px auto;"></div>
+					</div>
+				</div>
+            </div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<%- include ('../partials/footer') %>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</html>

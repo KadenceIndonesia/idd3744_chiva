@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard - Chiva <%= login[0].pid %></title>
+    <link rel = "icon" href = "https://kadence.com/wp-content/uploads/2020/07/260x260.png" type = "image/x-icon">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="<%= baseurl() %>plugin/flexmonster/theme/green/flexmonster.css"></script>
+    <%- include ('./partials/header') %>
+</head>
+<style>
+    .overview{
+        padding: 10px 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+    }
+</style>
+<body>
+<div class="wrapper">
+	<div class="lSide">
+		<%- include ('./partials/sidebar') %>
+	</div>
+	<div class="rSide">
+		<div class="head desk">
+			<%- include ('./partials/topdesk') %>
+		</div>
+		<div class="mainbox size-std column">
+			<div class="breadcrumbs size-std">
+				DASHBOARD
+			</div>
+			<% if(topbreak==undefined){ %>
+            <div class="overview full-length column shadow half">
+				<% for(let i=0;i < result.length ; i++){ %>
+                <div class="cols-4" style="color: <%= result[i].color %>; border-right: 1px solid #f5f5f5; padding: 5px 2%;">
+					<a href="<%= baseurl() %>?break=<%= result[i].label %>" >
+						<p class="size-head3 nopad"><%= result[i].label %> <b style="float: right;"><%= result[i].count %>(<%= result[i].y %><sup></sup>)</b></p>
+						<div class="progressbar">
+							<div class="progressresult" style="width: <%= result[i].y %>%; background-color: <%= result[i].color %>;"></div>
+							<div class="progressdot" style="left: <%= result[i].y - 1 %>%; background-color: <%= result[i].color %>;"></div>
+						</div>
+					</a>
+                </div>
+				<% } %>
+            </div>
+			<% } %>
+			<div class="cols-12 containt" style="margin: 20px 0;">
+				<div class="headtitle trans" style="margin-bottom: 0;">
+					<p class="size-head3 nopad">Achievement</p>
+				</div>
+				<div style="width: 100%;">
+					<div class="chartbox">
+						<div id="chartAchievement" style="height: 400px; max-width: 100%; width: 100%; margin: 0px auto;"></div>
+					</div>
+				</div>
+            </div>
+		</div>
+	</div>
+</div>
+</body>
+<%- include ('./partials/footer') %>
+<script>
+window.onload = function () {	
+	CanvasJS.addColorSet("flexmonsterStyle",
+            [//colorSet Array
+            "#069E2D",
+            "#058E3F",
+            "#04773B",
+            "#036016",
+    ]);
+    var achievement = {
+		colorSet: "flexmonsterStyle",
+		exportEnabled: true,
+		animationEnabled: true,
+		axisY:{
+			minimum: 0,
+			maximum: 100,
+		},
+		axisX: {
+			title: " ",
+			labelFontSize: 12,
+			labelWrap: true
+		},
+		data: [              
+		{
+			type: "column",
+			legendText: "{label} ",
+			indexLabel: "{label} - {y}",
+			indexLabelFontSize: 12,
+			yValueFormatString: "#0.##",
+			toolTipContent: "<b>{label}</b>: {count}({y})",
+			dataPoints: <%- JSON.stringify(result) %>
+		}
+		]
+	};
+    $("#chartAchievement").CanvasJSChart(achievement);
+}
+</script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</html>
